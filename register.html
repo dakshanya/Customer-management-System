@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Create Account</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/CreateAcc.css') }}" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+</head>
+<body>
+  <div class="form-container">
+    <div class="form-box">
+      <div class="form-header">
+        <i class="fas fa-users icon"></i>
+        <h2>Create Account</h2>
+        <p>Join SUVID SOLUTIONS PVT LIMITED</p>
+      </div>
+
+      <form id="createAccountForm" method="POST" action="/register">
+        <label>Full Name</label>
+        <input type="text" id="fullName" name="fullName" placeholder="Enter your full name" required />
+      
+        <label>Email Address</label>
+        <input type="email" id="email" name="email" placeholder="Enter your email" required />
+      
+        <label>Password</label>
+        <input type="password" id="password" name="password" placeholder="Create a password" required />
+        <small id="passwordError" class="error-message"></small>
+      
+        <label>Confirm Password</label>
+        <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Confirm your password" required />
+        <small id="confirmPasswordError" class="error-message"></small>
+      
+        <label>Role</label>
+        <select id="role" name="role" required>
+          <option value="">Select your role</option>
+          <option value="admin">Admin</option>
+          <option value="employee">Employee</option>
+          <option value="manager">Manager</option>
+        </select>
+      
+        <div class="terms">
+          <input type="checkbox" id="terms" name="terms" required />
+          <label for="terms">I agree to the Terms of Service and Privacy Policy</label>
+        </div>
+      
+        <button type="submit" class="create-btn" id="createAccountBtn">
+          <i class="fas fa-user-plus"></i> Create Account
+        </button>
+      
+        <p class="signin-link">
+          Already have an account? <a href="#" onclick="goToSignin()">Sign in here</a>
+        </p>
+      </form>
+      
+
+    </div>
+    <footer>© 2025 SUVID SOLUTIONS PVT LIMITED. All rights reserved.</footer>
+  </div>
+
+   <script src="{{ url_for('static', filename='js/scripts.js') }}"></script>
+</body>
+</html>

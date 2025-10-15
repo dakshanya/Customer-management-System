@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Task Assignment - Sales CRM</title>
+  <link rel="stylesheet" href="tasks.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+  <div class="app-container">
+    <!-- Sidebar -->
+    <div class="sidebar">
+      <div class="sidebar-header">
+        <div class="brand">
+          <i class="fas fa-chart-line brand-icon"></i>
+          <span class="brand-text">SalesCRM</span>
+        </div>
+      </div>
+      
+      <nav class="sidebar-nav">
+        <a href="dashboard.html" class="nav-item">
+          <i class="fas fa-tachometer-alt"></i>
+          <span>Dashboard</span>
+        </a>
+        <a href="customer.html" class="nav-item">
+          <i class="fas fa-users"></i>
+          <span>Customers</span>
+        </a>
+        <a href="emp.html" class="nav-item">
+          <i class="fas fa-user-tie"></i>
+          <span>Employees</span>
+        </a>
+        <a href="tasks.html" class="nav-item active">
+          <i class="fas fa-tasks"></i>
+          <span>Tasks</span>
+        </a>
+        <a href="history.html" class="nav-item">
+          <i class="fas fa-chart-pie"></i>
+          <span>Reports</span>
+        </a>
+        <a href="notification.html" class="nav-item">
+          <i class="fas fa-bell"></i>
+          <span>Notifications</span>
+        </a>
+        <a href="settings.html" class="nav-item">
+          <i class="fas fa-cog"></i>
+          <span>Settings</span>
+        </a>
+      </nav>
+      
+      <div class="sidebar-footer">
+        <div class="user-profile">
+          <img src="/placeholder.svg?height=32&width=32" alt="Admin User" class="user-avatar">
+          <div class="user-info">
+            <div class="user-name">Admin User</div>
+            <div class="user-role">Admin</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+      <!-- Header -->
+      <header class="header">
+        <div class="header-left">
+          <button class="mobile-menu-btn">
+            <i class="fas fa-bars"></i>
+          </button>
+          <h1 class="page-title">Task Assignment</h1>
+        </div>
+        <div class="header-right">
+          <button class="notification-btn">
+            <i class="fas fa-bell"></i>
+          </button>
+          <div class="user-menu">
+            <img src="/placeholder.svg?height=32&width=32" alt="John Doe" class="user-avatar">
+            <span class="user-name">John Doe</span>
+          </div>
+        </div>
+      </header>
+
+      <!-- Content -->
+      <div class="content">
+        <div class="content-header">
+          <h2 class="section-title">Task Assignment</h2>
+          <p class="section-subtitle">Assign and manage tasks for your team</p>
+          <button class="btn btn-primary" id="assignNewTaskBtn">
+            <i class="fas fa-plus"></i>
+            Assign New Task
+          </button>
+        </div>
+
+        <!-- Task Form Modal -->
+        <div class="modal-overlay" id="taskModal">
+          <div class="modal">
+            <div class="modal-header">
+              <h3 class="modal-title">Create New Task</h3>
+              <button class="modal-close" id="closeModal">
+                <i class="fas fa-times"></i>
+              </button>
+            </div>
+            <form class="task-form" id="taskForm">
+              <div class="form-grid">
+                <div class="form-group">
+                  <label for="taskTitle">Task Title *</label>
+                  <input type="text" id="taskTitle" name="taskTitle" required>
+                </div>
+                <div class="form-group">
+                  <label for="employee">Employee *</label>
+                  <select id="employee" name="employee" required>
+                    <option value="">Select Employee</option>
+                    <option value="Alice Cooper">Alice Cooper</option>
+                    <option value="Bob Wilson">Bob Wilson</option>
+                    <option value="Carol Martinez">Carol Martinez</option>
+                    <option value="David Lee">David Lee</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="customer">Customer *</label>
+                  <select id="customer" name="customer" required>
+                    <option value="">Select Customer</option>
+                    <option value="John Smith">John Smith</option>
+                    <option value="Sarah Johnson">Sarah Johnson</option>
+                    <option value="Mike Davis">Mike Davis</option>
+                    <option value="Emily Brown">Emily Brown</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="dueDate">Due Date *</label>
+                  <input type="date" id="dueDate" name="dueDate" required>
+                </div>
+                <div class="form-group">
+                  <label for="priority">Priority *</label>
+                  <select id="priority" name="priority" required>
+                    <option value="">Select Priority</option>
+                    <option value="High">High</option>
+                    <option value="Medium">Medium</option>
+                    <option value="Low">Low</option>
+                  </select>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="description">Description</label>
+                <textarea id="description" name="description" rows="3"></textarea>
+              </div>
+              <div class="form-actions">
+                <button type="button" class="btn btn-secondary" id="cancelBtn">Cancel</button>
+                <button type="submit" class="btn btn-primary">Assign Task</button>
+              </div>
+            </form>
+          </div>
+        </div>
+
+        <!-- Filters -->
+        <div class="filters-section">
+          <div class="filters-grid">
+            <div class="filter-group">
+              <label for="statusFilter">Status</label>
+              <select id="statusFilter">
+                <option value="">All Status</option>
+                <option value="Pending">Pending</option>
+                <option value="In Progress">In Progress</option>
+                <option value="Completed">Completed</option>
+              </select>
+            </div>
+            <div class="filter-group">
+              <label for="dateFrom">Date From</label>
+              <input type="date" id="dateFrom">
+            </div>
+            <div class="filter-group">
+              <label for="dateTo">Date To</label>
+              <input type="date" id="dateTo">
+            </div>
+            <div class="filter-group">
+              <button class="btn btn-primary" id="applyFilters">Apply Filters</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Task List -->
+        <div class="task-list-section">
+          <h3 class="section-title">Task List</h3>
+          <div class="table-container">
+            <table class="task-table">
+              <thead>
+                <tr>
+                  <th>Task Title</th>
+                  <th>Employee</th>
+                  <th>Customer</th>
+                  <th>Status</th>
+                  <th>Due Date</th>
+                  <th>Priority</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="taskTableBody">
+                <!-- Tasks will be populated by JavaScript -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>// Sample task data
+let tasks = [
+  {
+    id: 1,
+    title: "Follow up on proposal",
+    employee: "Alice Cooper",
+    customer: "John Smith",
+    status: "Pending",
+    dueDate: "2024-01-15",
+    priority: "High",
+    description: "Follow up on the submitted proposal and get feedback from the client.",
+  },
+  {
+    id: 2,
+    title: "Prepare monthly report",
+    employee: "Bob Wilson",
+    customer: "Sarah Johnson",
+    status: "In Progress",
+    dueDate: "2024-01-20",
+    priority: "Medium",
+    description: "Compile and prepare the monthly sales performance report.",
+  },
+  {
+    id: 3,
+    title: "Client meeting preparation",
+    employee: "Carol Martinez",
+    customer: "Mike Davis",
+    status: "Completed",
+    dueDate: "2024-01-12",
+    priority: "Low",
+    description: "Prepare presentation materials for the upcoming client meeting.",
+  },
+]
+
+let taskIdCounter = 4
+let editingTaskId = null
+
+// DOM Elements
+const assignNewTaskBtn = document.getElementById("assignNewTaskBtn")
+const taskModal = document.getElementById("taskModal")
+const closeModal = document.getElementById("closeModal")
+const cancelBtn = document.getElementById("cancelBtn")
+const taskForm = document.getElementById("taskForm")
+const taskTableBody = document.getElementById("taskTableBody")
+const applyFiltersBtn = document.getElementById("applyFilters")
+const mobileMenuBtn = document.querySelector(".mobile-menu-btn")
+const sidebar = document.querySelector(".sidebar")
+
+// Initialize the application
+document.addEventListener("DOMContentLoaded", () => {
+  renderTasks()
+  setMinDate()
+  setupEventListeners()
+})
+
+// Set minimum date to today
+function setMinDate() {
+  const today = new Date().toISOString().split("T")[0]
+  document.getElementById("dueDate").min = today
+  document.getElementById("dateFrom").min = today
+  document.getElementById("dateTo").min = today
+}
+
+// Setup event listeners
+function setupEventListeners() {
+  assignNewTaskBtn.addEventListener("click", openTaskModal)
+  closeModal.addEventListener("click", closeTaskModal)
+  cancelBtn.addEventListener("click", closeTaskModal)
+  taskForm.addEventListener("submit", handleTaskSubmit)
+  applyFiltersBtn.addEventListener("click", applyFilters)
+  mobileMenuBtn.addEventListener("click", toggleMobileMenu)
+
+  // Close modal when clicking outside
+  taskModal.addEventListener("click", (e) => {
+    if (e.target === taskModal) {
+      closeTaskModal()
+    }
+  })
+}
+
+// Mobile menu toggle
+function toggleMobileMenu() {
+  sidebar.classList.toggle("active")
+}
+
+// Open task modal
+function openTaskModal(taskId = null) {
+  editingTaskId = taskId
+
+  if (taskId) {
+    const task = tasks.find((t) => t.id === taskId)
+    if (task) {
+      populateForm(task)
+      document.querySelector(".modal-title").textContent = "Edit Task"
+    }
+  } else {
+    taskForm.reset()
+    document.querySelector(".modal-title").textContent = "Create New Task"
+  }
+
+  taskModal.classList.add("active")
+  document.body.style.overflow = "hidden"
+}
+
+// Close task modal
+function closeTaskModal() {
+  taskModal.classList.remove("active")
+  document.body.style.overflow = "auto"
+  editingTaskId = null
+  taskForm.reset()
+}
+
+// Populate form with task data
+function populateForm(task) {
+  document.getElementById("taskTitle").value = task.title
+  document.getElementById("employee").value = task.employee
+  document.getElementById("customer").value = task.customer
+  document.getElementById("dueDate").value = task.dueDate
+  document.getElementById("priority").value = task.priority
+  document.getElementById("description").value = task.description || ""
+}
+
+// Handle task form submission
+function handleTaskSubmit(e) {
+  e.preventDefault()
+
+  const formData = new FormData(taskForm)
+  const taskData = {
+    title: formData.get("taskTitle"),
+    employee: formData.get("employee"),
+    customer: formData.get("customer"),
+    dueDate: formData.get("dueDate"),
+    priority: formData.get("priority"),
+    description: formData.get("description"),
+    status: editingTaskId ? tasks.find((t) => t.id === editingTaskId).status : "Pending",
+  }
+
+  if (editingTaskId) {
+    updateTask(editingTaskId, taskData)
+  } else {
+    addTask(taskData)
+  }
+
+  closeTaskModal()
+  renderTasks()
+}
+
+// Add new task
+function addTask(taskData) {
+  const newTask = {
+    id: taskIdCounter++,
+    ...taskData,
+  }
+  tasks.push(newTask)
+}
+
+// Update existing task
+function updateTask(id, taskData) {
+  const taskIndex = tasks.findIndex((t) => t.id === id)
+  if (taskIndex !== -1) {
+    tasks[taskIndex] = { ...tasks[taskIndex], ...taskData }
+  }
+}
+
+// Delete task
+function deleteTask(id) {
+  if (confirm("Are you sure you want to delete this task?")) {
+    tasks = tasks.filter((t) => t.id !== id)
+    renderTasks()
+  }
+}
+
+// Render tasks in the table
+function renderTasks(tasksToRender = tasks) {
+  taskTableBody.innerHTML = ""
+
+  tasksToRender.forEach((task) => {
+    const row = document.createElement("tr")
+    row.innerHTML = `
+      <td>${task.title}</td>
+      <td>${task.employee}</td>
+      <td>${task.customer}</td>
+      <td><span class="status-badge status-${task.status.toLowerCase().replace(" ", "")}">${task.status}</span></td>
+      <td>${formatDate(task.dueDate)}</td>
+      <td><span class="priority-badge priority-${task.priority.toLowerCase()}">${task.priority}</span></td>
+      <td>
+        <div class="action-buttons">
+          <button class="action-btn edit-btn" onclick="openTaskModal(${task.id})" title="Edit Task">
+            <i class="fas fa-edit"></i>
+          </button>
+          <button class="action-btn delete-btn" onclick="deleteTask(${task.id})" title="Delete Task">
+            <i class="fas fa-trash"></i>
+          </button>
+        </div>
+      </td>
+    `
+    taskTableBody.appendChild(row)
+  })
+}
+
+// Format date for display
+function formatDate(dateString) {
+  const date = new Date(dateString)
+  return date.toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+  })
+}
+
+// Apply filters
+function applyFilters() {
+  const statusFilter = document.getElementById("statusFilter").value
+  const dateFromFilter = document.getElementById("dateFrom").value
+  const dateToFilter = document.getElementById("dateTo").value
+
+  let filteredTasks = tasks
+
+  if (statusFilter) {
+    filteredTasks = filteredTasks.filter((task) => task.status === statusFilter)
+  }
+
+  if (dateFromFilter) {
+    filteredTasks = filteredTasks.filter((task) => new Date(task.dueDate) >= new Date(dateFromFilter))
+  }
+
+  if (dateToFilter) {
+    filteredTasks = filteredTasks.filter((task) => new Date(task.dueDate) <= new Date(dateToFilter))
+  }
+
+  renderTasks(filteredTasks)
+}
+
+// Make functions globally available
+window.openTaskModal = openTaskModal
+window.deleteTask = deleteTask
+</script>
+</body>
+</html>

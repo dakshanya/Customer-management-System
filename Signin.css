@@ -1,0 +1,216 @@
+body {
+  /* background: linear-gradient(135deg, #f9f4f2a9, #f4e7e1a2, #ff9c459d); */
+  background: linear-gradient(135deg, #f4e7e1, #ff9b45, #d5451b);
+  background-attachment: fixed;
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 40px 20px;
+}
+
+.logo {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.circle {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  border: 1px solid #151515;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 15px;
+}
+
+.circle img {
+  width: 30px;
+  height: 30px;
+}
+
+.logo h1 {
+  margin: 0;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.subhead {
+  margin: 0;
+  font-size: 12px;
+  letter-spacing: 1px;
+  color: #D5451B;
+}
+
+.desc {
+  margin-top: 4px;
+  font-size: 12px;
+  color: #521C0D;
+}
+
+.login-box {
+  background: rgba(255, 255, 255, 0.2); /* Semi-transparent white */
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  padding: 30px 25px;
+  box-shadow: 0 8px 32px rgba(82, 28, 13, 0.2); /* 3D soft shadow */
+  max-width: 350px; 
+  width: 100%;
+  text-align: center;
+  transition: transform 0.3s ease;
+}
+
+.login-box::before {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  border-radius: 22px;
+  background: linear-gradient(120deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0));
+  z-index: -1;
+  filter: blur(4px);
+}
+
+.login-box h2 {
+  margin: 0 0 10px;
+  font-size: 20px;
+  color: #521C0D;
+}
+
+.login-box p {
+  margin: 0 0 20px;
+  color: #D5451B;
+  font-weight: 500;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Label with icon */
+label {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 14px;
+  margin: 10px 0 5px;
+  color: #521C0D;
+}
+
+/* Icon beside labels */
+.icon-label {
+  width: 16px;
+  height: 16px;
+  vertical-align: middle;
+}
+
+/* Input Fields */
+input[type="email"],
+input[type="password"] {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #e0e0e0;
+  border-radius: 5px;
+  box-sizing: border-box;
+  font-size: 14px;
+}
+
+input:focus {
+  outline: none;
+  border-color: #FF9B45;
+  box-shadow: 0 0 4px #FF9B45;
+}
+
+.password-wrapper {
+  width: 100%;
+  position: relative;
+}
+
+.options {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 10px 0;
+  font-size: 12px;
+  color: #521C0D;
+}
+
+.login-btn {
+  background-color: #D5451B;
+  color: white;
+  padding: 12px;
+  border: none;
+  border-radius: 5px;
+  margin-top: 10px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.3s;
+}
+
+.login-btn:hover {
+  background-color: #FF9B45;
+}
+
+.or-divider {
+  text-align: center;
+  margin: 15px 0;
+  color: #666;
+  font-size: 13px;
+}
+
+.create-text {
+  font-size: 14px;
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+/* Create account button with icon */
+.create-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  border: 1px solid #D5451B;
+  color: #D5451B;
+  background: white;
+  padding: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.create-btn:hover {
+  background-color: #FF9B45;
+}
+
+/* Icon inside create account button */
+.icon-btn {
+  width: 16px;
+  height: 16px;
+  vertical-align: middle;
+}
+
+footer {
+  margin-top: 20px;
+  font-size: 12px;
+  color: #232222;
+  text-align: center;
+}
+
+/* Responsive */
+@media (max-width: 500px) {
+  .login-box {
+    width: 90%;
+    padding: 25px;
+  }
+}

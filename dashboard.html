@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sales CRM Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}">
+</head>
+<body class="bg-gray-50 font-sans">
+    <div class="flex h-screen overflow-hidden">
+        <!-- Left Sidebar with Custom CSS -->
+        <div class="sidebar-container">
+            <div class="sidebar">
+                <!-- Logo/Brand Section -->
+                <div class="sidebar-header">
+                    <div class="brand">
+                        <i class="fas fa-chart-line brand-icon"></i>
+                        <span class="brand-text">SalesCRM</span>
+                    </div>
+                </div>
+                
+                
+                <!-- Navigation Links -->
+                <div class="sidebar-content">
+                    <nav class="navigation">
+                        <a href="{{ url_for('dashboard') }}" class="nav-link nav-link-active">
+                            <i class="fas fa-tachometer-alt nav-icon"></i>
+                            Dashboard
+                        </a>
+                        <a href="{{ url_for('customers') }}" class="nav-link">
+                            <i class="fas fa-users nav-icon"></i>
+                            Customers
+                        </a>
+                        <a href="emp.html" class="nav-link">
+                            <i class="fas fa-user-tie nav-icon"></i>
+                            Employees
+                        </a>
+                        <a href="tasks.html" class="nav-link">
+                            <i class="fas fa-tasks nav-icon"></i>
+                            Tasks
+                        </a>
+                        <a href="history.html" class="nav-link">
+                            <i class="fas fa-chart-pie nav-icon"></i>
+                            Reports
+                        </a>
+                        <a href="notification.html" class="nav-link">
+                            <i class="fas fa-bell nav-icon"></i>
+                            Notifications
+                        </a>
+                        <a href="settings.html" class="nav-link">
+                            <i class="fas fa-cog nav-icon"></i>
+                            Settings
+                        </a>
+                    </nav>
+                </div>
+                
+                <!-- User Profile Section -->
+                <div class="sidebar-footer">
+                    <div class="user-profile">
+                        <img class="user-avatar" src="https://randomuser.me/api/portraits/men/32.jpg" alt="User profile">
+                        <div class="user-info">
+                            <p class="user-name">Admin User</p>
+                            <p class="user-role">Admin</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="flex flex-col flex-1 overflow-hidden">
+            <!-- Top Bar -->
+            <div class="flex items-center justify-between h-16 px-6 bg-white border-b border-gray-200">
+                <div class="flex items-center">
+                    <!-- Mobile hamburger menu - visible on mobile only -->
+                    <button class="mobile-menu-btn mr-4">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                    <h1 class="text-xl font-semibold text-gray-800">Sales CRM Dashboard</h1>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <button class="text-gray-500 focus:outline-none">
+                        <i class="fas fa-bell"></i>
+                    </button>
+                    <div class="relative">
+                        <button class="flex items-center focus:outline-none">
+                            <img class="w-8 h-8 rounded-full" src="https://randomuser.me/api/portraits/men/32.jpg" alt="User profile">
+                            <span class="ml-2 text-sm font-medium text-gray-700 hidden md:inline">Admin User</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Main Panel Content -->
+            <div class="flex-1 overflow-auto p-6">
+                <!-- Welcome Message -->
+                <div class="mb-8">
+                    <h2 class="text-2xl font-semibold text-gray-800">Welcome back!</h2>
+                    <p class="text-gray-600">Here's what's happening with your sales CRM today.</p>
+                </div>
+
+                <!-- Statistics Cards -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+                    <!-- Total Products -->
+                    <div class="bg-white rounded-lg shadow-sm p-6 stats-card">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <p class="text-sm font-medium text-gray-500">Total Products</p>
+                                <p class="text-2xl font-semibold text-gray-800">0</p>
+                            </div>
+                            <div class="p-3 rounded-full bg-blue-50 text-blue-600">
+                                <i class="fas fa-box-open"></i>
+                            </div>
+                        </div>
+                        <div class="mt-4 flex items-center text-sm text-green-500">
+                            <i class="fas fa-arrow-up mr-1"></i>
+                            <span>+12% from last month</span>
+                        </div>
+                    </div>
+
+                        <!-- Total Customers -->
+                    <div class="bg-white rounded-lg shadow-sm p-6 stats-card">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <p class="text-sm font-medium text-gray-500">Total Customers</p>
+                                <p class="text-2xl font-semibold text-gray-800" id="totalCustomers">{{ total_customers }}</p>
+                            </div>
+                            <div class="p-3 rounded-full bg-blue-50 text-blue-600">
+                                <i class="fas fa-users"></i>
+                            </div>
+                        </div>
+                        <div class="mt-4 flex items-center text-sm text-blue-500">
+                            <i class="fas fa-arrow-up mr-1"></i>
+                            <span>+25% from last month</span>
+                        </div>
+                    </div>
+
+                <!-- Active Customers -->
+                <div class="bg-white rounded-lg shadow-sm p-6 stats-card">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-sm font-medium text-gray-500">Active Customers</p>
+                            <p class="text-2xl font-semibold text-gray-800" id="activeCustomers">{{ active_customers }}</p>
+                        </div>
+                        <div class="p-3 rounded-full bg-green-50 text-green-600">
+                            <i class="fas fa-user-check"></i>
+                        </div>
+                    </div>
+                    <div class="mt-4 flex items-center text-sm text-gray-500">
+                        <span>{{ "%.0f"|format((active_customers / total_customers * 100) if total_customers > 0 else 0) }}% of total customers</span>
+                    </div>
+                </div>
+
+                <!-- Inactive Customers -->
+                <div class="bg-white rounded-lg shadow-sm p-6 stats-card">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-sm font-medium text-gray-500">Inactive Customers</p>
+                            <p class="text-2xl font-semibold text-gray-800" id="inactiveCustomers">{{ inactive_customers }}</p>
+                        </div>
+                        <div class="p-3 rounded-full bg-red-50 text-red-600">
+                            <i class="fas fa-user-slash"></i>
+                        </div>
+                    </div>
+                    <div class="mt-4 flex items-center text-sm text-gray-500">
+                        <span>{{ "%.0f"|format((inactive_customers / total_customers * 100) if total_customers > 0 else 0) }}% of total customers</span>
+                    </div>
+                </div>
+            </div>
+
+
+                <!-- Charts Row -->
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+                    <!-- Pie Chart -->
+                    <div class="bg-white rounded-lg shadow-sm p-6">
+                        <div class="flex items-center justify-between mb-4">
+                            <h3 class="text-lg font-medium text-gray-800">Employee Task Status</h3>
+                        </div>
+                        <div class="chart-container" style="position: relative; height:300px;">
+                            <canvas id="pieChart"></canvas>
+                        </div>
+                    </div>
+
+                    <!-- Bar Chart -->
+                    <div class="bg-white rounded-lg shadow-sm p-6">
+                        <div class="flex items-center justify-between mb-4">
+                            <h3 class="text-lg font-medium text-gray-800">Task Progress Overview</h3>
+                            <div class="relative">
+                                <select class="block w-full pl-3 pr-10 py-2 text-base border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 sm:text-sm rounded-md">
+                                    <option>This Week</option>
+                                    <option>Last Week</option>
+                                    <option>This Month</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="chart-container" style="position: relative; height:300px;">
+                            <canvas id="barChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Recent Activity -->
+                <div class="bg-white rounded-lg shadow-sm p-6">
+                    <h3 class="text-lg font-medium text-gray-800 mb-4">Recent Activity</h3>
+                    <div class="space-y-4">
+                        <!-- Activity Item 1 -->
+                        <div class="flex items-start">
+                            <img class="w-10 h-10 rounded-full mr-3" src="https://randomuser.me/api/portraits/women/12.jpg" alt="User avatar">
+                            <div class="flex-1">
+                                <div class="flex items-center justify-between">
+                                    <p class="font-medium text-gray-800">Sarah Johnson completed a task</p>
+                                    <span class="text-xs text-gray-500">2 hours ago</span>
+                                </div>
+                                <p class="text-sm text-gray-600">Updated customer profile for Acme Corp</p>
+                                <span class="inline-block mt-1 px-2 py-1 text-xs font-medium bg-green-100 text-green-800 rounded-full">Completed</span>
+                            </div>
+                        </div>
+
+                        <!-- Activity Item 2 -->
+                        <div class="flex items-start">
+                            <img class="w-10 h-10 rounded-full mr-3" src="https://randomuser.me/api/portraits/men/24.jpg" alt="User avatar">
+                            <div class="flex-1">
+                                <div class="flex items-center justify-between">
+                                    <p class="font-medium text-gray-800">Mike Davis added a new customer</p>
+                                    <span class="text-xs text-gray-500">4 hours ago</span>
+                                </div>
+                                <p class="text-sm text-gray-600">New customer: Tech Solutions Inc</p>
+                                <span class="inline-block mt-1 px-2 py-1 text-xs font-medium bg-blue-100 text-blue-800 rounded-full">New</span>
+                            </div>
+                        </div>
+
+                        <!-- Activity Item 3 -->
+                        <div class="flex items-start">
+                            <img class="w-10 h-10 rounded-full mr-3" src="https://randomuser.me/api/portraits/women/32.jpg" alt="User avatar">
+                            <div class="flex-1">
+                                <div class="flex items-center justify-between">
+                                    <p class="font-medium text-gray-800">Lisa Wong updated a product</p>
+                                    <span class="text-xs text-gray-500">6 hours ago</span>
+                                </div>
+                                <p class="text-sm text-gray-600">Updated pricing for Premium Plan</p>
+                                <span class="inline-block mt-1 px-2 py-1 text-xs font-medium bg-yellow-100 text-yellow-800 rounded-full">Updated</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize Charts
+            initCharts();
+            
+            // Mobile menu toggle
+            const mobileMenuButton = document.querySelector('.mobile-menu-btn');
+            const sidebar = document.querySelector('.sidebar-container');
+
+            if (mobileMenuButton && sidebar) {
+                // Initially hide sidebar on mobile
+                sidebar.classList.add('sidebar-mobile-hidden');
+                
+                mobileMenuButton.addEventListener('click', function() {
+                    sidebar.classList.toggle('sidebar-mobile-hidden');
+                });
+                
+                // Close sidebar when clicking outside on mobile
+                sidebar.addEventListener('click', function(e) {
+                    if (e.target === sidebar) {
+                        sidebar.classList.add('sidebar-mobile-hidden');
+                    }
+                });
+            }
+            
+            // Update statistics with animation
+            animateStatistics();
+        });
+
+        function initCharts() {
+            // Pie Chart - Employee Task Status
+            const pieCtx = document.getElementById('pieChart').getContext('2d');
+            const pieChart = new Chart(pieCtx, {
+                type: 'pie',
+                data: {
+                    labels: ['Completed', 'In Progress', 'Overdue', 'Not Started'],
+                    datasets: [{
+                        data: [45.5, 23.1, 12.7, 18.6],
+                        backgroundColor: [
+                            '#10B981', // Green
+                            '#F59E0B', // Orange
+                            '#EF4444', // Red
+                            '#9CA3AF'  // Grey
+                        ],
+                        borderWidth: 0
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'right',
+                            labels: {
+                                boxWidth: 12,
+                                padding: 20,
+                                usePointStyle: true,
+                                pointStyle: 'circle'
+                            }
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    return `${context.label}: ${context.raw}%`;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+            
+            // Bar Chart - Task Progress Overview
+            const barCtx = document.getElementById('barChart').getContext('2d');
+            const barChart = new Chart(barCtx, {
+                type: 'bar',
+                data: {
+                    labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+                    datasets: [
+                        {
+                            label: 'Completed',
+                            data: [12, 19, 8, 15, 12, 5, 3],
+                            backgroundColor: '#10B981',
+                            borderRadius: 4
+                        },
+                        {
+                            label: 'In Progress',
+                            data: [8, 12, 5, 9, 7, 3, 2],
+                            backgroundColor: '#F59E0B',
+                            borderRadius: 4
+                        },
+                        {
+                            label: 'Overdue',
+                            data: [3, 5, 2, 4, 3, 1, 0],
+                            backgroundColor: '#EF4444',
+                            borderRadius: 4
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        x: {
+                            stacked: true,
+                            grid: {
+                                display: false
+                            }
+                        },
+                        y: {
+                            stacked: true,
+                            beginAtZero: true,
+                            ticks: {
+                                stepSize: 5
+                            }
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            position: 'top',
+                            labels: {
+                                boxWidth: 12,
+                                usePointStyle: true,
+                                pointStyle: 'circle'
+                            }
+                        }
+                    }
+                }
+            });
+        }
+        function animateStatistics() {
+            const stats = [
+                // Keep Total Products static (or use a dummy animation)
+                { id: 'totalproducts', target: 1247, duration: 2000, element: document.querySelectorAll('.stats-card')[0] },
+        
+                // Animate Total Customers, Active Customers, Inactive Customers from real HTML values
+                { id: "totalCustomers", target: parseInt(document.getElementById("totalCustomers").textContent), duration: 1500 },
+                { id: "activeCustomers", target: parseInt(document.getElementById("activeCustomers").textContent), duration: 1500 },
+                { id: "inactiveCustomers", target: parseInt(document.getElementById("inactiveCustomers").textContent), duration: 1500 }
+            ];
+        
+            stats.forEach((stat, index) => {
+                let el;
+        
+                if (stat.id) {
+                    el = document.getElementById(stat.id);
+                } else if (stat.element) {
+                    el = stat.element.querySelector('p.text-2xl');
+                }
+        
+                if (!el || isNaN(stat.target)) return;
+        
+                let current = 0;
+                const increment = Math.ceil(stat.target / (stat.duration / 16)); // ~60 FPS
+        
+                const animate = () => {
+                    current += increment;
+                    if (current >= stat.target) {
+                        el.textContent = stat.target;
+                    } else {
+                        el.textContent = current;
+                        requestAnimationFrame(animate);
+                    }
+                };
+        
+                el.textContent = "0";
+                animate();
+            });
+        }
+        
+        
+        
+    </script>
+    
+</body>
+
+</html>
+
+
+

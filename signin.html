@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Suvid Login</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/Signin.css') }}" />
+</head>
+<body>
+  <div class="container">
+    <div class="logo">
+      <div class="circle">
+        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABwAAAAcCAYAAAByDd+UAAAB2ElEQVR4AWJwL/ChKyZJcV+0PfupAMYZTwG11i9Mw0AUBvCcxaIhWBwWh0DgSAMhS9usJA1FMTmBT/A41KYmSEAsmSS4iWEQLPhMNgtgwHG8L2zJ5cv9KbQTXwhr737r3XvXpUp/5up6peBTpLoSLaAGqIvffBeq0yQIaF9SAiPQREt9rg5qgR+naluAyRJygQSPMe5P4PORWpeJ7wyE08V9WEobinzl6h7zBMHXE3XmgQazWK2Z9+N/gXsMuveXQMeTTcaHatO3TGWmtmTyRwvYC4EDAypRMDwAOFoCCF8TYFdS/hec8PKhB82iwYToTULHtUFgeGJPW3SaA40IdmWC3IuSvTog0rW1DcqeQA6D4SoNFc/iacpaYKAPH7iZQwcA5nOCVCADF4x9tI3BMptPhs8aO0tniZrjsLb1Icat7G0RPqwDYJZlF+12e4NuMva3+vswjuMdzOcFi6K4leg8z2/ME4R70ffGx7goivoSjb+VwGXoGwbTarUuASFVwSEgyluapsc+CNdl8nfCwiD2z4EiL9gX3ieZdGqBkBHmc4I8EQAHPFxAIwc0pS8WAGmpsKSMJklig+ahpUcqF4MPxPXGf5ei3NEuBPapfZoBubAAc0FUzQ8RomqsWlyWqAAAAABJRU5ErkJggg==" alt="Logo" />
+      </div>
+      <h1>SUVID SOLUTIONS</h1>
+      <p class="subhead">PVT LIMITED</p>
+      <p class="desc">Sales Management Platform</p>
+    </div>
+
+    <div class="login-box">
+      <h2>Welcome Back</h2>
+      <p>Sign in to your account</p>
+
+      <form id="loginForm" method="POST" action="/signin">
+        <label>
+          <img src="static/img/mail.png" class="icon-label" alt="email" />Email Address
+        </label>
+        <input type="email" name="email" placeholder="Enter your email" required />
+      
+        <label>
+          <img src="static/img/password_14562503.png" class="icon-label" alt="password" />Password
+        </label>
+        <div class="password-wrapper">
+          <input type="password" name="password" id="password" placeholder="Enter your password" required />
+        </div>
+      
+        <div class="options">
+          <label><input type="checkbox" /> Remember me</label>
+          <a href="{{ url_for('forgot_password') }}">Forgot password?</a>
+        </div>
+      
+        <button type="submit" class="login-btn">Sign In</button>
+      
+        <div class="or-divider">or</div>
+      
+        <p class="create-text">Don't have an account?</p>
+        <button type="button" class="create-btn" onclick="goToSignup()">
+          <img src="static/img/add-friend_15992003.png" class="icon-btn" alt="create account" />Create Account
+        </button>
+      </form>
+      
+    </div>
+
+    <footer>&copy; 2024 Suvid Solutions Pvt Limited. All rights reserved.</footer>
+  </div>
+
+  <script src="{{ url_for('static', filename='js/scripts.js') }}"></script>
+</body>
+</html>
